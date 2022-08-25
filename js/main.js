@@ -6,7 +6,7 @@
     navBar.className = navBar.className.replaceAll('light', 'dark');
 
     // Create an array for the colors
-    let buttonColors = ['primary', 'secondary', 'success', 'warning', 'danger', 'info'];
+    var buttonColors = ['primary', 'secondary', 'success', 'warning', 'danger', 'info'];
 
     // Get the buttons from the document
     let myButtons = document.querySelectorAll('.col-2 > button');
@@ -58,4 +58,19 @@
 
     // Add the handleHeaderEvent function as an event listener on the header
     myHeader.addEventListener('click', handleHeaderEvent)
+}
+
+// Create a new scope
+// Add event listeners to our buttons -> change the background
+{
+    let myButtons = document.querySelectorAll('.col-2 > button');
+
+    for (let i = 0; i < myButtons.length; i++){
+        let button = myButtons[i];
+        // Add an event listener 
+        button.addEventListener('click', () => {
+            let body = document.body;
+            body.className = `bg-${buttonColors[i]}`
+        })
+    }
 }
