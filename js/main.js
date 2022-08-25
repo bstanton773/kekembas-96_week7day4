@@ -25,13 +25,37 @@
     newHeader.id = 'myHeader';
     newHeader.className = 'text-center mt-3';
     newHeader.innerHTML = 'Created by Brian with the help of JavaScript';
+    newHeader.style.color = 'black';
 
     // Get the row of buttons
     let allRows = document.getElementsByClassName('row')
     let buttonRow = allRows[0];
-    console.log(buttonRow);
+    // console.log(buttonRow);
 
     // Add the new header AFTER the row of buttons (vs appending to the end)
     buttonRow.after(newHeader);
 
+}
+
+// Create a new scope
+{
+    // Get the header we created
+    let myHeader = document.getElementById('myHeader');
+    // console.log(myHeader);
+
+    // Create a function to be executed when our event triggers
+    function handleHeaderEvent(event){
+        // console.log(event);
+        let elementToChange = event.target;
+        // console.log(elementToChange);
+        if (elementToChange.style.color === 'black'){
+            elementToChange.style.color = 'red';
+        } else {
+            elementToChange.style.color = 'black';
+        }
+    }
+
+
+    // Add the handleHeaderEvent function as an event listener on the header
+    myHeader.addEventListener('click', handleHeaderEvent)
 }
