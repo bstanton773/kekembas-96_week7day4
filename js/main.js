@@ -74,3 +74,31 @@
         })
     }
 }
+
+
+// Get the country from the form and display on the page
+{
+    // Grab the form
+    let form = document.getElementById('countryForm');
+    // console.log(form);
+
+    // create a function to handle submit event
+    async function handleSubmit(e){
+        e.preventDefault(); // Prevent the event from refreshing the page
+        let inputCountry = e.target.countryName.value; // Get the input value from the form
+        let country = await getCountryInfo(inputCountry); // Call the get country info function with the data from the form
+        console.log(country);
+        console.log(typeof country);
+    }
+
+    // Function that will get the data from the country API
+    async function getCountryInfo(countryName){
+        let res = await fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+        let data = await res.json()
+        return data[0]
+    }
+    
+    
+    // Add handleSubmit function as listener to submit event on form
+    form.addEventListener('submit', handleSubmit);
+}
