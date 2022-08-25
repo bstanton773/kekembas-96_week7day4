@@ -87,8 +87,7 @@
         e.preventDefault(); // Prevent the event from refreshing the page
         let inputCountry = e.target.countryName.value; // Get the input value from the form
         let country = await getCountryInfo(inputCountry); // Call the get country info function with the data from the form
-        console.log(country);
-        console.log(typeof country);
+        buildCountryCard(country);
     }
 
     // Function that will get the data from the country API
@@ -96,6 +95,51 @@
         let res = await fetch(`https://restcountries.com/v3.1/name/${countryName}`)
         let data = await res.json()
         return data[0]
+    }
+
+    // Function that will take the country object from the API and build an HTML card for it
+    function buildCountryCard(countryObj){
+        // Create a card div
+        let card = document.createElement('div');
+        card.className = 'card';
+
+        
+        // Create a top image
+        let image = document.createElement('img');
+        image.className = 'card-img-top';
+        image.src = countryObj.flags.png;
+        // Add image as a child to the card div
+        card.append(image);
+
+        // Create card body
+        let cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+
+        // Create country name and population elements
+        let countryTitle = document.createElement('h5');
+        countryTitle.className = 'card-title';
+        countryTitle.innerHTML = countryObj.name.official;
+
+        let population = document.createElement('p');
+        population.className = 'card-text';
+        population.innerHTML = `Population: ${countryObj.population.toLocaleString('en-US')}`;
+
+        // Add title and population to the card body
+        cardBody.append(countryTitle);
+        cardBody.append(population);
+
+        // Add the card body to the card
+        card.append(cardBody);
+
+        // Create a column for the row
+        let col = document.createElement('div');
+        col.className = 'col-12 col-md-6 col-lg-3';
+
+        // Add the card as a child to the column
+        col.append(card);
+
+        // Get the country display row and add our new column
+        document.getElementById('countryDisplay').append(col);
     }
     
     
